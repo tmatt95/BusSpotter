@@ -92,7 +92,6 @@
 </form>
 <div style="float: right; margin-top: 5px;margin-bottom:2px;">
     <?php if(Yii::app()->user->isGuest == false){?>
-	<?php echo CHtml::link('<span class="icon-plus"></span> Spotting', array('vehicles/create'), array('class' => 'btn rightLink'));?>
 	<?php echo CHtml::link('<span class="icon-plus"></span> Vehicle', array('vehicles/create'), array('class' => 'btn rightLink'));?>
     <?php }?>
 </div>

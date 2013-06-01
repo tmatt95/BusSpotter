@@ -14,7 +14,7 @@
 	    ));
     ?>
     <div class="row">
-	<div class="span5">
+	<div class="form-horizontal">
 	    <div class="control-group">
 		<div class="control-label">Make</div>
 		<div class="controls">
@@ -143,6 +143,9 @@
     <?php $this->endWidget();?>
 </div>
 
+<div style="float: right; margin-top: 5px;margin-bottom:2px;">
+<a href="#addSpotting" role="button" class="btn" data-toggle="modal"><span class="icon-plus"></span> Spotting</a>
+</div>
 <ul class="nav nav-tabs" id="myTab">
     <li class="active"><a href="#home">Comments</a></li>
     <li><a href="#spottings">Spottings</a></li>
@@ -176,7 +179,7 @@
 		    <pre><span data-bind="text: comment"></span> </pre>
 		</div>
 		<a href="#" class="span1" data-bind="click: deleteComment">
-		   <span class="icon-remove"></span>
+		    <span class="icon-remove"></span>
 		</a>
 	    </div>
 	</div>
@@ -185,6 +188,58 @@
 	<div class="muted" data-bind="if: spottings().length == 0">
 	    No one has seen this vehicle yet
 	</div>
+    </div>
+</div>
+
+<div id="addSpotting" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	<h3 id="myModalLabel">Add Spotting</h3>
+    </div>
+    <div class="modal-body">
+	<div class="form-horizontal">
+	    <div class="control-group">
+		<div class="control-label">Make / Model</div>
+		<div class="controls">
+		    <div class="formText"><span class="formText" data-bind="text:vehicleMake"></span>  <span class="formText" data-bind="text:vehicleModel"></span></div>
+		</div>
+	    </div>
+	    <div class="control-group">
+		<div class="control-label">Bodywork</div>
+		<div class="controls">
+		    <div class="formText" data-bind="text:vehicleBodywork"></div>
+		</div>
+	    </div>
+	    <div class="control-group">
+		<div class="control-label">Reg (Fleet No)</div>
+		<div class="controls">
+		    <div class="formText"><span class="formText" data-bind="text:vehicleRegistration"></span> (<span class="formText" data-bind="text:vehicleFleetNumber"></span>)</div>
+		</div>
+	    </div>
+	    <hr/> 
+	    <div class="control-group">
+		<div class="control-label">Date Spotted</div>
+		<div class="controls">
+		    <input type="text" placeholder="Date Spotted"/>
+		</div>
+	    </div>
+	    <div class="control-group">
+		<div class="control-label">Location</div>
+		<div class="controls">
+		    <input type="text" placeholder="Location"/>
+		</div>
+	    </div>
+	    <div class="control-group">
+		<div class="control-label">Comment</div>
+		<div class="controls">
+		    <textarea></textarea>
+		</div>
+	    </div>
+	</div>
+    </div>
+    <div class="modal-footer">
+	<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+	<button class="btn btn-primary">Save changes</button>
     </div>
 </div>
 
@@ -211,6 +266,7 @@
 	self.vehicleFleetNumber = ko.observable("");
 	self.vehicleDateBuilt = ko.observable("");
 	self.vehicleDateScrapped = ko.observable("");
+	self.vehicle_id = '<?php echo $id;?>';
 	
 	// Comment area
 	self.comments = ko.observableArray([]);
@@ -227,7 +283,7 @@
 	    });
 	}	
 	self.deleteComment = function (item){
-	$.ajax({
+	    $.ajax({
 		type: "POST",
 		dataType: 'json',
 		url: "<?php echo Yii::app()->createUrl('VehicleComments/DelVehicleCommentInd')?>",
