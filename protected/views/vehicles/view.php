@@ -99,8 +99,13 @@
 	    </div>
 	</div>
     </div>
+    <h2>Preservation</h2>
+    <div data-bind="if: preservationLocations().length == 0">
+	<div class="row">
+	<div class="span4 muted">No preservation locations recorded</div>
+	</div>
+    </div>
     <div data-bind="if: preservationLocations().length > 0">
-	<h2>Preservation</h2>
 	<div class="row">
 	    <div class="span3 colheader">
 		Owners Name
@@ -144,7 +149,7 @@
 </div>
 
 <div style="float: right; margin-top: 5px;margin-bottom:2px;">
-<a href="#addSpotting" role="button" class="btn" data-toggle="modal"><span class="icon-plus"></span> Spotting</a>
+    <a href="#addSpotting" role="button" class="btn" data-toggle="modal"><span class="icon-plus"></span> Spotting</a>
 </div>
 <ul class="nav nav-tabs" id="myTab">
     <li class="active"><a href="#home">Comments</a></li>
