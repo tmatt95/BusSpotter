@@ -160,7 +160,6 @@
 		<input type="button" class="btn btn-block btn-primary" type="button" style="margin-top:34px" data-bind="click: addComment, enable: self.commentText().length > 0" value="Add Comment" />
 	    </div>
 	</div>
-	<hr/>
 	<div class="muted" data-bind="if: comments().length == 0">
 	    There are no comments against this vehicle
 	</div>
