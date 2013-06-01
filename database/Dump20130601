@@ -1,0 +1,307 @@
+CREATE DATABASE  IF NOT EXISTS `busspotter` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `busSpotter`;
+-- MySQL dump 10.13  Distrib 5.5.16, for osx10.5 (i386)
+--
+-- Host: localhost    Database: busSpotter
+-- ------------------------------------------------------
+-- Server version	5.1.54
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `preservation_location`
+--
+
+DROP TABLE IF EXISTS `preservation_location`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `preservation_location` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `owners_name` varchar(200) DEFAULT NULL,
+  `date_added` datetime DEFAULT NULL,
+  `vehicle_id` int(11) DEFAULT NULL,
+  `date_from` varchar(45) DEFAULT NULL,
+  `date_to` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `pVId` (`vehicle_id`),
+  CONSTRAINT `pVId` FOREIGN KEY (`vehicle_id`) REFERENCES `vehicles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) DEFAULT NULL,
+  `email` varchar(250) DEFAULT NULL,
+  `password` varchar(100) DEFAULT NULL,
+  `date_joined` datetime DEFAULT NULL,
+  `left` tinyint(1) DEFAULT NULL,
+  `left_date` datetime DEFAULT NULL,
+  `banned` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `countries`
+--
+
+DROP TABLE IF EXISTS `countries`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `countries` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `code` varchar(3) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=251 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `operating_location_revisions`
+--
+
+DROP TABLE IF EXISTS `operating_location_revisions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `operating_location_revisions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `vehicle_revision_id` int(11) DEFAULT NULL,
+  `country` varchar(200) DEFAULT NULL,
+  `location` varchar(200) DEFAULT NULL,
+  `date_from` year(4) DEFAULT NULL,
+  `date_to` year(4) DEFAULT NULL,
+  `owners_name` varchar(200) DEFAULT NULL,
+  `preservation` tinyint(1) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT NULL,
+  `added_by` int(11) DEFAULT NULL,
+  `date_added` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `OLRAddedBy_idx` (`added_by`),
+  KEY `OLRVehicleRevision_idx` (`vehicle_revision_id`),
+  CONSTRAINT `OLRAddedBy` FOREIGN KEY (`added_by`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `OLRVehicleRevision` FOREIGN KEY (`vehicle_revision_id`) REFERENCES `vehicle_revisions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `vehicles`
+--
+
+DROP TABLE IF EXISTS `vehicles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vehicles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `make_model_id` int(11) NOT NULL,
+  `bodywork` varchar(200) NOT NULL,
+  `registration` varchar(100) NOT NULL,
+  `fleet_number` varchar(20) NOT NULL,
+  `date_built` int(11) DEFAULT NULL,
+  `date_scrapped` int(40) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT NULL,
+  `date_added` datetime DEFAULT NULL,
+  `added_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `vAddedBy_idx` (`added_by`),
+  KEY `VMM_idx` (`make_model_id`),
+  CONSTRAINT `vAddedBy` FOREIGN KEY (`added_by`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `VMM` FOREIGN KEY (`make_model_id`) REFERENCES `vehicles_make_models` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `locations`
+--
+
+DROP TABLE IF EXISTS `locations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `locations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) DEFAULT NULL,
+  `pres_location` tinyint(1) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT NULL,
+  `added_by` int(11) DEFAULT NULL,
+  `date_added` date DEFAULT NULL,
+  `country_id` int(10) unsigned DEFAULT NULL,
+  `spotting_location` tinyint(1) DEFAULT NULL,
+  `open_street_map_link` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `LAddedBy_idx` (`added_by`),
+  KEY `LCountryId_idx` (`country_id`),
+  CONSTRAINT `LAddedBy` FOREIGN KEY (`added_by`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `LCountryId` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `spottings`
+--
+
+DROP TABLE IF EXISTS `spottings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `spottings` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `added_by` int(11) DEFAULT NULL,
+  `date_spotted` date DEFAULT NULL,
+  `date_added` datetime DEFAULT NULL,
+  `location` varchar(200) DEFAULT NULL,
+  `points` int(11) DEFAULT NULL,
+  `comment` text,
+  `location_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `SUser_idx` (`added_by`),
+  KEY `SLocation_idx` (`location_id`),
+  CONSTRAINT `SLocation` FOREIGN KEY (`location_id`) REFERENCES `locations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `SUser` FOREIGN KEY (`added_by`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `vehicles_make_models`
+--
+
+DROP TABLE IF EXISTS `vehicles_make_models`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vehicles_make_models` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `make` varchar(200) DEFAULT NULL,
+  `model` varchar(200) DEFAULT NULL,
+  `wikipedia_link` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `vehicle_revisions`
+--
+
+DROP TABLE IF EXISTS `vehicle_revisions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vehicle_revisions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `make` varchar(200) DEFAULT NULL,
+  `model` varchar(200) DEFAULT NULL,
+  `bodywork` varchar(200) DEFAULT NULL,
+  `registration` varchar(100) DEFAULT NULL,
+  `year_built` year(4) DEFAULT NULL,
+  `fleet_number` varchar(20) DEFAULT NULL,
+  `date_scrapped` year(4) DEFAULT NULL,
+  `date_added` datetime DEFAULT NULL,
+  `added_by` int(11) DEFAULT NULL,
+  `operating_location_id` int(11) DEFAULT NULL,
+  `vehicle_id` int(11) DEFAULT NULL,
+  `comments` text,
+  PRIMARY KEY (`id`),
+  KEY `vehilce_ID_idx` (`vehicle_id`),
+  KEY `operating_location_id_idx` (`operating_location_id`),
+  KEY `vrAddedBy_idx` (`added_by`),
+  CONSTRAINT `operating_location_id` FOREIGN KEY (`operating_location_id`) REFERENCES `operating_locations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `vehilce_ID` FOREIGN KEY (`vehicle_id`) REFERENCES `vehicles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `vrAddedBy` FOREIGN KEY (`added_by`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `vehicle_comments`
+--
+
+DROP TABLE IF EXISTS `vehicle_comments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vehicle_comments` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `date_added` datetime NOT NULL,
+  `added_by` int(11) DEFAULT NULL,
+  `comment` text,
+  `deleted` tinyint(1) DEFAULT '0',
+  `vehicle_id` int(11) DEFAULT NULL,
+  `make_model_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `VCAddedBy_idx` (`added_by`),
+  KEY `VCVehicleId_idx` (`vehicle_id`),
+  KEY `VCVMakeModelId_idx` (`make_model_id`),
+  CONSTRAINT `VCAddedBy` FOREIGN KEY (`added_by`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `VCVehicleId` FOREIGN KEY (`vehicle_id`) REFERENCES `vehicles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `VCVMakeModelId` FOREIGN KEY (`make_model_id`) REFERENCES `vehicles_make_models` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `operators`
+--
+
+DROP TABLE IF EXISTS `operators`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `operators` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `deleted` tinyint(1) DEFAULT NULL,
+  `added_by` int(11) DEFAULT NULL,
+  `wikipedia_link` varchar(200) DEFAULT NULL,
+  `date_added` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `OAddedBy_idx` (`added_by`),
+  CONSTRAINT `OAddedBy` FOREIGN KEY (`added_by`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `operating_locations`
+--
+
+DROP TABLE IF EXISTS `operating_locations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `operating_locations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `vehicle_id` int(11) NOT NULL,
+  `operator_id` int(11) NOT NULL,
+  `location_id` int(11) NOT NULL,
+  `date_from` year(4) NOT NULL,
+  `date_to` year(4) NOT NULL,
+  `owners_name` varchar(200) DEFAULT NULL,
+  `preservation` tinyint(1) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT NULL,
+  `date_added` date DEFAULT NULL,
+  `added_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `VId_idx` (`vehicle_id`),
+  KEY `LocId_idx` (`location_id`),
+  KEY `OpId_idx` (`operator_id`),
+  CONSTRAINT `LocId` FOREIGN KEY (`location_id`) REFERENCES `locations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `OpId` FOREIGN KEY (`operator_id`) REFERENCES `operators` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `VId` FOREIGN KEY (`vehicle_id`) REFERENCES `vehicles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2013-06-01 23:05:52
