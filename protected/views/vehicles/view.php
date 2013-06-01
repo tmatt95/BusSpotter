@@ -176,7 +176,7 @@
 		    <pre><span data-bind="text: comment"></span> </pre>
 		</div>
 		<a href="#" class="span1" data-bind="click: deleteComment">
-		    X
+		   <span class="icon-remove"></span>
 		</a>
 	    </div>
 	</div>

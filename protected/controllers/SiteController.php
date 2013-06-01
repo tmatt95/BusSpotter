@@ -28,6 +28,36 @@ class SiteController extends Controller
 	$this->pageTitle = Yii::app()->name;
 	$this->render('index');
     }
+    
+    public function actionSearch(){
+	
+	$make = "";
+	if($_GET['make'] <> '')
+	   $make =  $_GET['make'];
+	
+	$model = "";
+	if($_GET['model'] <> '')
+	   $model =  $_GET['model'];
+	
+	$bodywork = "";
+	if($_GET['bodywork'] <> '')
+	   $bodywork =  $_GET['bodywork'];
+	
+	$country = "";
+	if($_GET['country'] <> '')
+	   $country =  $_GET['country'];
+	
+	$operator = "";
+	if($_GET['operator'] <> '')
+	   $operator =  $_GET['operator'];
+	
+	$location = "";
+	if($_GET['location'] <> '')
+	   $location =  $_GET['location'];
+	
+	$this->pageTitle = Yii::app()->name;
+	$this->render('search',array('make'=>$make,'model'=>$model, 'bodywork'=>$bodywork,'country'=>$country,'operator'=>$operator,'location'=>$location));
+    }
 
     public function actionAddVehicle(){
 	$this->render('addVehicle');

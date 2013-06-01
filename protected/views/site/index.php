@@ -20,7 +20,7 @@
 	<h2>Search</h2>
     </div>
 </div>
-<form>
+<form action="<?php echo Yii::app()->createUrl('site/search');?>">
     <div class="row">
 	<div class="span12 highlightBox">
 	    <div style="padding:10px;">
@@ -75,7 +75,7 @@
 		    <div class="control-group">
 			<label class="control-label" for="location">Operating Location</label>
 			<div class="controls">
-			    <input type="text" id="location" placeholder="Location" data-bind="value: searchLocation">
+			    <input type="text" name="location" id="location" placeholder="Location" data-bind="value: searchLocation">
 			</div>
 		    </div>
 		</div>
