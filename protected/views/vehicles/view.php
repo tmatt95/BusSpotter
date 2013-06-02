@@ -102,7 +102,7 @@
     <h2>Preservation</h2>
     <div data-bind="if: preservationLocations().length == 0">
 	<div class="row">
-	<div class="span4 muted">No preservation locations recorded</div>
+	    <div class="span4 muted">No preservation locations recorded</div>
 	</div>
     </div>
     <div data-bind="if: preservationLocations().length > 0">
@@ -168,29 +168,52 @@
 	<div class="muted" data-bind="if: comments().length == 0">
 	    There are no comments against this vehicle
 	</div>
-	<div class="muted" data-bind="if: comments().length > 0">
-	    <div class="row">
-		<div class="span2 colheader">Date</div>
-		<div class="span2 colheader">User</div>
-		<div class="span8 colheader">Comment</div>
-	    </div>
-	</div>
-	<div data-bind="foreach: comments">
-	    <div class="row">
-		<div class="span2" data-bind="text: date_added"></div>
-		<div class="span1" data-bind="text: username">User</div>
-		<div class="span8">
-		    <pre><span data-bind="text: comment"></span> </pre>
-		</div>
-		<a href="#" class="span1" data-bind="click: deleteComment">
-		    <span class="icon-remove"></span>
-		</a>
-	    </div>
+	<div data-bind="if: comments().length > 0">
+	    <table class="table table-bordered table-hover">
+		<thead>
+		<tr>
+		    <th>Date</th>
+		    <th>User</th>
+		    <th>Comment</th>
+		    <th></th>
+		</tr>
+		</thead>
+		<tbody data-bind="foreach: comments">
+		    <tr>
+			<td data-bind="text:date_added"></td>
+			<td data-bind="text:username"></td>
+			<td><pre><span data-bind="text:comment"></span></pre></td>
+			<td><span class="icon-remove" data-bind="click: deleteComment"></span></td>
+		    </tr>
+		</tbody>
+	    </table>
 	</div>
     </div>
     <div class="tab-pane" id="spottings">
 	<div class="muted" data-bind="if: spottings().length == 0">
 	    No one has seen this vehicle yet
+	</div>
+	<div data-bind="if: spottings().length > 0">
+	    <table class="table table-bordered table-hover">
+		<thead>
+		<tr>
+		    <th>Date</th>
+		    <th>User</th>
+		    <th>Country</th>
+		    <th>Location</th>
+		    <th>Comment</th>
+		</tr>
+		</thead>
+		<tbody data-bind="foreach: spottings">
+		    <tr>
+			<td data-bind="text:date_spotted"></td>
+			<td data-bind="text:user_name"></td>
+			<td data-bind="text:country_name"></td>
+			<td data-bind="text:location"></td>
+			<td><pre><span data-bind="text:comment"></span></pre></td>
+		    </tr>
+		</tbody>
+	    </table>
 	</div>
     </div>
 </div>
@@ -203,47 +226,54 @@
     <div class="modal-body">
 	<div class="form-horizontal">
 	    <div class="control-group">
-		<div class="control-label">Make / Model</div>
+		<label class="control-label">Make / Model</label>
 		<div class="controls">
 		    <div class="formText"><span class="formText" data-bind="text:vehicleMake"></span>  <span class="formText" data-bind="text:vehicleModel"></span></div>
 		</div>
 	    </div>
 	    <div class="control-group">
-		<div class="control-label">Bodywork</div>
+		<label class="control-label">Bodywork</label>
 		<div class="controls">
 		    <div class="formText" data-bind="text:vehicleBodywork"></div>
 		</div>
 	    </div>
 	    <div class="control-group">
-		<div class="control-label">Reg (Fleet No)</div>
+		<label class="control-label">Reg (Fleet No)</label>
 		<div class="controls">
 		    <div class="formText"><span class="formText" data-bind="text:vehicleRegistration"></span> (<span class="formText" data-bind="text:vehicleFleetNumber"></span>)</div>
 		</div>
 	    </div>
 	    <hr/> 
 	    <div class="control-group">
-		<div class="control-label">Date Spotted</div>
+		<label for="spotted_date" class="control-label">Date Spotted</label>
 		<div class="controls">
-		    <input type="text" placeholder="Date Spotted"/>
+		    <input id="spotted_date" type="text" class="datepicker" placeholder="Date Spotted" data-bind="value:spotted_datev" MaxLength="10"/>
+		    <span class="help-block">DD/MM/YYYY</span>
 		</div>
 	    </div>
 	    <div class="control-group">
-		<div class="control-label">Location</div>
+		<label for="spotted_country" class="control-label">Country</label>
 		<div class="controls">
-		    <input type="text" placeholder="Location"/>
+		    <?php echo CHtml::dropDownList('spotted_country', '', CHtml::listData(Countries::model()->findAll(array('order' => 'name DESC')), 'id', 'name'), array('prompt'    => 'Select...', 'data-bind' => 'value: spotted_countryv'));?>
 		</div>
 	    </div>
 	    <div class="control-group">
-		<div class="control-label">Comment</div>
+		<label for="spotted_location" class="control-label">Location</label>
 		<div class="controls">
-		    <textarea></textarea>
+		    <input type="text" id="spotted_location" data-bind="value:spotted_locationv" placeholder="Location"/>
+		</div>
+	    </div>
+	    <div class="control-group">
+		<label for="spotted_comment" class="control-label">Comment</label>
+		<div class="controls">
+		    <textarea id="spotted_comment" data-bind="value:spotted_commentv"></textarea>
 		</div>
 	    </div>
 	</div>
     </div>
     <div class="modal-footer">
 	<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-	<button class="btn btn-primary">Save changes</button>
+	<a href="#addSpottingGo" role="button" class="btn btn-primary" ><span class="icon-plus"></span> Spotting</a>
     </div>
 </div>
 
@@ -272,6 +302,44 @@
 	self.vehicleDateScrapped = ko.observable("");
 	self.vehicle_id = '<?php echo $id;?>';
 	
+	// Spotting
+	self.spotted_datev = ko.observable("");
+	self.spotted_countryv = ko.observable("");
+	self.spotted_locationv = ko.observable("");
+	self.spotted_commentv = ko.observable("");
+	self.spottings = ko.observableArray([]);
+	self.addSpotting = function() {  
+	    $.ajax({
+		type: "POST",
+		dataType: 'json',
+		url: "<?php echo Yii::app()->createUrl('Spottings/AddSpotting')?>",
+		data:{
+		    vehicle_id:self.vehicle_id,
+		    spotted_commentv:self.spotted_commentv(),
+		    spotted_locationv:self.spotted_locationv(),
+		    spotted_countryv:self.spotted_countryv(),
+		    spotted_datev:self.spotted_datev()
+		}
+	    }).done(function(data) {
+		self.spotted_commentv('');
+		self.spotted_locationv('');
+		self.spotted_countryv('');
+		self.spotted_datev('');
+		self.updateVehicleSpottings();
+	    });
+	}
+	self.updateVehicleSpottings = function() {  
+	    $.ajax({
+		type: "GET",
+		dataType: 'json',
+		url: "<?php echo Yii::app()->createUrl('Spottings/getVehicleSpottings')?>",
+		data:{vehicle_id:self.vehicle_id}
+	    }).done(function(data) {
+		self.spottings(data);
+	    });
+	}
+	self.updateVehicleSpottings();
+	
 	// Comment area
 	self.comments = ko.observableArray([]);
 	self.commentText = ko.observable("");
@@ -296,14 +364,6 @@
 		self.updateVehicleComments();
 	    });
 	}
-	
-	// operating information
-	self.operatingLocations = ko.observableArray([]);
-	
-	// Preservation information
-	self.preservationLocations = ko.observableArray([]);	
-	self.spottings = ko.observableArray([]);
-	
 	self.updateVehicleComments = function(){	
 	    $.ajax({
 		type: "GET",
@@ -313,8 +373,12 @@
 	    }).done(function( data ) {
 		self.comments(data);
 	    });
-	
 	}
+	
+	// Locations
+	self.operatingLocations = ko.observableArray([]);
+	self.preservationLocations = ko.observableArray([]);
+	
 	
 	$.ajax({
 	    type: "GET",
