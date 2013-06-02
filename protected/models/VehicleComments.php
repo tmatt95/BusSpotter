@@ -102,28 +102,29 @@ AND vehicle_id = :vehicleId ORDER BY date_added DESC";
      */
     public function getLast5IndBus(){
 		$connection = Yii::app()->db;
-	$sql	= "	SELECT
-vc.date_added,
-vc.added_by,
-vc.comment,
-u.id,
-u.username,
-v.registration,
-v.fleet_number,
-vc.vehicle_id, 
+	$sql	= "SELECT u.id as user_id,
+u.username as user_name,
+s.date_spotted,
+s.date_added,
+s.vehicle_id,
+v.bodywork as vehicle_bodywork,
+v.registration as vehicle_registration,
+v.fleet_number as vehicle_fleet_number,
 vmm.make as vehicle_make,
 vmm.model as vehicle_model,
-v.bodywork as vehicle_bodywork
-FROM vehicle_comments vc
-LEFT JOIN users u  ON
-vc.added_by =u.id
+s.location,
+c.name as country_name,
+s.comment
+FROM spottings s
+LEFT JOIN users u ON
+s.added_by = u.id
+LEFT JOIN countries c ON
+c.id = s.country_id
 LEFT JOIN vehicles v ON
-v.id = vc.make_model_id
+v.id = s.vehicle_id
 LEFT JOIN vehicles_make_models vmm ON
 vmm.id = v.make_model_id
-WHERE vc.deleted = 0
-AND vc.vehicle_id IS NOT NULL
-ORDER BY vc.date_added DESC
+ORDER BY date_spotted DESC
 LIMIT 5";
 	$command    = $connection->createCommand($sql);
 	$comments   = $command->queryAll();
