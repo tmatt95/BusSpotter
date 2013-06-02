@@ -38,6 +38,8 @@
 		?>
 	    <?php endif?>
 	    <?php echo $content;?>
+	    <hr  style="margin-bottom: 4px;"/>
+	    <p style="text-align:center;">Created by: Matt Turner</p>
 	    <script>
 		$(function() {
 		});
