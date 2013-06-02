@@ -39,7 +39,7 @@
 		    <div class="control-group">
 			<label class="control-label" for="country">Country</label>
 			<div class="controls">
-			    <?php echo CHtml::dropDownList('country', '', CHtml::listData(Countries::model()->findAll(array('order' => 'name DESC')), 'name', 'name'), array('prompt'    => 'Select...', 'data-bind' => 'value: searchCountry'));?>
+			    <?php echo CHtml::dropDownList('country', '', CHtml::listData(Countries::model()->findAll(array('order' => 'name DESC')), 'id', 'name'), array('prompt'    => 'Select...', 'data-bind' => 'value: searchCountry'));?>
 			</div>
 		    </div>
 		</div>
@@ -47,13 +47,13 @@
 		    <div class="control-group">
 			<label class="control-label" for="operator">Operator</label>
 			<div class="controls">
-			    <?php echo CHtml::dropDownList('operator', '', CHtml::listData(Operators::model()->findAll(array('order' => 'name DESC')), 'name', 'name'), array('prompt'    => 'Select...', 'data-bind' => 'value: searchOperator'));?>
+			    <?php echo CHtml::dropDownList('operator', '', CHtml::listData(Operators::model()->findAll(array('order' => 'name DESC')), 'id', 'name'), array('prompt'    => 'Select...', 'data-bind' => 'value: searchOperator'));?>
 			</div>
 		    </div>
 		</div>
 		<div class="span3">
 		    <div class="control-group">
-			<label class="control-label" for="location">Operating Location</label>
+			<label class="control-label" for="location">Location</label>
 			<div class="controls">
 			    <input type="text" id="location" name="location" placeholder="Location" data-bind="value: searchLocation">
 			</div>
@@ -72,32 +72,40 @@
 </form>
 
 <ul class="nav nav-tabs" id="searchRes">
-<li class="active"><a href="#vehicles">Vehicles <span class="badge">0</span></a> </li>
-<li><a href="#profile">Profile <span class="badge">0</span></a></li>
-<li><a href="#messages">Messages <span class="badge">0</span></a></li>
-<li><a href="#settings">Settings <span class="badge">0</span></a></li>
+    <li class="active"><a href="#vehicles">Vehicles <span class="badge" data-bind="text:resVehicles.length"></span></a> </li>
+    <li><a href="#spottings">Spottings <span class="badge" data-bind="text:resSpottings.length"></span></a></li>
 </ul>
- 
+
 <div class="tab-content">
-<div class="tab-pane active" id="vehicles">...</div>
-<div class="tab-pane" id="profile">...</div>
-<div class="tab-pane" id="messages">...</div>
-<div class="tab-pane" id="settings">...</div>
+    <div class="tab-pane active" id="vehicles">
+	<h2>Vehicles</h2>
+	<div data-bind="if:resVehicles.length == 0">
+	    <span class="muted">No vehicle results found</span>
+	</div>
+    </div>
+    <div class="tab-pane" id="spottings">
+	<h2>Spottings</h2>
+	<div data-bind="if:resSpottings.length == 0">
+	    <span class="muted">No spottings found</span>
+	</div>
+    </div>
 </div>
 <script type="text/javascript">
     function ViewModel() {
-    	
 	// The search section on the page
-	self.searchMake =ko.observable("<?php echo $make; ?>");
-	self.searchModel =ko.observable("<?php echo $model; ?>");
-	self.searchBodywork =ko.observable("<?php echo $bodywork; ?>");
-	self.searchCountry =ko.observable("<?php echo $country; ?>");
-	self.searchOperator =ko.observable("<?php echo $operator; ?>");
-	self.searchLocation =ko.observable("<?php echo $location; ?>");
+	self.searchMake =ko.observable("<?php echo $make;?>");
+	self.searchModel =ko.observable("<?php echo $model;?>");
+	self.searchBodywork =ko.observable("<?php echo $bodywork;?>");
+	self.searchCountry =ko.observable("<?php echo $country;?>");
+	self.searchOperator =ko.observable("<?php echo $operator;?>");
+	self.searchLocation =ko.observable("<?php echo $location;?>");
 	self.modalBody = ko.observable("");
 	self.modalHeader = ko.observable("");	
 	self.latestAdded = ko.observableArray();
 	self.commentsIndBus = ko.observableArray();
+	
+	self.resVehicles = ko.observableArray([]);
+	self.resSpottings = ko.observableArray([]);
     }
     
     $(document).ready(function() {
