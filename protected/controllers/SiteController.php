@@ -58,6 +58,25 @@ class SiteController extends Controller
 	$this->pageTitle = Yii::app()->name;
 	$this->render('search',array('make'=>$make,'model'=>$model, 'bodywork'=>$bodywork,'country'=>$country,'operator'=>$operator,'location'=>$location));
     }
+    
+    public function actionSearchVehicles(){
+	$model=new VSearch('search');
+        $model->unsetAttributes(); 
+	$model->make = 'Volvo';
+	$test = $model->search();
+	
+	$resArray = array();
+	$item = 0;
+	
+	foreach ($test->data as $a){
+	    $resArray[$item]['make'] = $a->make;
+	    $resArray[$item]['model'] = $a->model;
+	    $resArray[$item]['bodywork'] = $a->bodywork;
+	    $resArray[$item]['name'] = $a->name;
+	    $item ++;
+	}
+	print_r($resArray);    
+    }
 
     public function actionAddVehicle(){
 	$this->render('addVehicle');
