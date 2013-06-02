@@ -112,16 +112,32 @@
 	    <div class="span10"><h2>Last 5 Spotted</h2></div>
 	</div>
 	<p>The most recent vehicles to have been spotted</p>
-	<table class="table table-bordered">
+	<table class="table table-bordered table-hover">
 	    <thead>
 		<tr>
-		    <th>Make / Model</th>
-		    <th>Bodywork</th>
-		    <th>Registration</th>
+		    <th>Vehicle</th>
+		    <th>Date Spotted</th>
+		    <th>Country</th>
+		    <th>Location</th>
+		    <th>Comment</th>
 		    <th>Date Added</th>
 		    <th>Added By</th>
 		</tr>
 	    </thead>
+	    <tbody data-bind="foreach: spottedLatest">
+		<tr>
+		    <td><a href="#" data-bind="click: viewVehicle">
+			    <div><span data-bind="text:vehicle_registration"></span> (<span data-bind="text:vehicle_fleet_number"></span>)</div>
+			    <div><span data-bind="text:vehicle_make"></span> <span data-bind="text:vehicle_model"></span></div>
+			</a></td>
+		    <td data-bind="text:date_spotted"></td>
+		    <td data-bind="text:country_name">Country</td>
+		    <td data-bind="text:location">Location</td>
+		    <td data-bind="text:comment"></td>
+		    <td data-bind="text:date_added"></td>
+		    <td data-bind="text:user_name"></td>
+		</tr>
+	    </tbody>
 	</table>
     </div>
     <div class="tab-pane active" id="lAdded">
@@ -129,7 +145,7 @@
 	    <div class="span10"><h2>Last 5 Added</h2></div>
 	</div>
 	<p>The most recent vehicles to have been added</p>
-	<table class="table table-bordered">
+	<table class="table table-bordered table-hover">
 	    <thead>
 		<tr>
 		    <th>Make / Model</th>
@@ -143,7 +159,7 @@
 		<tr>
 		    <td><a href="#" data-bind="text:make_model,click:viewVehicle"></a></td>
 		    <td data-bind="text:bodywork"></td>
-		    <td data-bind="text:registration"></td>
+		    <td data-bind="text:vehicle_registration"></td>
 		    <td data-bind="text:date_added"></td>
 		    <td data-bind="text:username"></td>
 		</tr>
@@ -151,9 +167,8 @@
 	</table>
     </div>
     <div class="tab-pane" id="lComments">
-	<h3>General Vehicles</h3>
-	<h3>Individual Vehicles</h3>
-	<table class="table table-bordered">
+	<h2>Last 5 Comments</h2>
+	<table class="table table-bordered table-hover">
 	    <thead>
 		<tr>
 		    <th>Vehicle</th>
@@ -165,12 +180,12 @@
 	    <tbody data-bind="foreach: commentsIndBus">
 		<tr>
 		    <td><a href="#" data-bind="click: viewVehicle">
-			    <div><span data-bind="text:registration"></span> (<span data-bind="text:fleet_number"></span>)</div>
+			    <div><span data-bind="text:vehicle_registration"></span> (<span data-bind="text:vehicle_fleet_number"></span>)</div>
 			    <div><span data-bind="text:vehicle_make"></span> <span data-bind="text:vehicle_model"></span></div>
 			</a></td>
 		    <td data-bind="text:comment"></td>
 		    <td data-bind="text:date_added"></td>
-		    <td data-bind="text:username"></td>
+		    <td data-bind="text:user_name"></td>
 		</tr>
 	    </tbody>
 	</table>
@@ -197,17 +212,18 @@
 	self.searchCountry =ko.observable("");
 	self.searchOperator =ko.observable("");
 	self.searchLocation =ko.observable("");
+	
+	// Popup Window
 	self.modalBody = ko.observable("");
-	self.modalHeader = ko.observable("");	
-	self.latestAdded = ko.observableArray();
-	self.commentsIndBus = ko.observableArray();
+	self.modalHeader = ko.observable("");
     	
-	// View information on a vehicle
+	// General
 	self.viewVehicle = function(item) {
 	    window.location = '<?php echo Yii::app()->createUrl('vehicles/view');?>/id/' + item.vehicle_id;
 	} 
     	
-	// Switches to the last 5 uploaded tab
+	// Latest Added
+	self.latestAdded = ko.observableArray();
 	self.getLast5Uploaded = function() {
 	    // Loads the latest added
 	    $.ajax({
@@ -219,7 +235,8 @@
 	    });
 	}
 	
-	// Switches to the last 5 individual Comments
+	// Latest Comments
+	self.commentsIndBus = ko.observableArray();
 	self.getLast5CommentsInd = function() {
 	    $.ajax({
 		type: "POST",
@@ -229,6 +246,19 @@
 		self.commentsIndBus(msg);
 	    });
 	}
+	
+	// Latest Spotted
+	self.spottedLatest = ko.observableArray();
+	self.getLast5Spottings = function() {
+	    $.ajax({
+		type: "POST",
+		dataType: 'json',
+		url: "<?php echo Yii::app()->createUrl('Spottings/GetLast5Spottings')?>"
+	    }).done(function( msg ) {
+		self.spottedLatest(msg);
+	    });
+	}
+	self.getLast5Spottings();	
 	
 	// Open the disclaimer popup window
 	openDisclaimer =  function() {
@@ -241,8 +271,8 @@
     
     $(document).ready(function() {
     
-       self.getLast5Uploaded();
-       self.getLast5CommentsInd();
+	self.getLast5Uploaded();
+	self.getLast5CommentsInd();
     
 	$('#latestTabs a').click(function (e) {
 	    e.preventDefault();
