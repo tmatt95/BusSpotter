@@ -159,7 +159,7 @@ WHERE v.id = :vehicleId";
 	$sql	= "
 	SELECT CONCAT(CONCAT(make, ' '),model) as make_model,
 v.bodywork,
-v.registration,
+v.registration as vehicle_registration,
 v.date_added,
 u.username,
 v.id as vehicle_id
