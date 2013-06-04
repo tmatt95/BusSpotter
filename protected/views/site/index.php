@@ -111,6 +111,10 @@
 	<div class="row">
 	    <div class="span10"><h2>Last 5 Spotted</h2></div>
 	</div>
+<div data-bind="if: spottedLatest().length == 0">
+<p class="muted" >No one has spotted anything.</p>
+</div>
+<div data-bind="if: spottedLatest().length > 0">
 	<p>The most recent vehicles to have been spotted</p>
 	<table class="table table-bordered table-hover">
 	    <thead>
@@ -139,11 +143,16 @@
 		</tr>
 	    </tbody>
 	</table>
+</div>
     </div>
     <div class="tab-pane active" id="lAdded">
 	<div class="row">
 	    <div class="span10"><h2>Last 5 Added</h2></div>
 	</div>
+<div data-bind="if: latestAdded().length == 0">
+<p class="muted" >No vehicles in system. Add one, you know you want to!</p>
+</div>
+<div data-bind="if: latestAdded().length > 0">
 	<p>The most recent vehicles to have been added</p>
 	<table class="table table-bordered table-hover">
 	    <thead>
@@ -165,9 +174,14 @@
 		</tr>
 	    </tbody>
 	</table>
+</div>
     </div>
     <div class="tab-pane" id="lComments">
 	<h2>Last 5 Comments</h2>
+<div data-bind="if: commentsIndBus().length == 0">
+<p class="muted" >There are no comments. Be the first!</p>
+</div>
+<div data-bind="if: commentsIndBus().length > 0">
 	<table class="table table-bordered table-hover">
 	    <thead>
 		<tr>
@@ -189,6 +203,7 @@
 		</tr>
 	    </tbody>
 	</table>
+</div>
     </div>
 </div>
 <!-- Modal -->
