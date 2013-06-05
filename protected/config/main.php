@@ -52,7 +52,7 @@ return array(
 			'connectionString' => 'mysql:host=localhost;dbname=busSpotter',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => 'localhostmysql',
+			'password' => '',
 			'charset' => 'utf8',
 		),
 		'errorHandler'=>array(
