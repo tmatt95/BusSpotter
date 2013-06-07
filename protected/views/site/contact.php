@@ -14,7 +14,7 @@ $this->pageTitle = Yii::app()->name . ' - Contact Us';
     </div>
 
 <?php else: ?>
-    <p>
+    <p class="muted">
         Please fill out the following form to contact us. Thank you.
     </p>
     <div class="form form-horizontal">
@@ -62,7 +62,7 @@ $this->pageTitle = Yii::app()->name . ' - Contact Us';
                 <div class="controls">
                     <?php $this->widget('CCaptcha'); ?> <br/>
                     <?php echo $form->textField($model, 'verifyCode'); ?>
-                    <div class="hint">Please enter the letters as they are shown in the image above.
+                    <div class="muted">Please enter the letters as they are shown in the image above.
                         <br/>Letters are not case-sensitive.</div>
                 </div>
                 <?php echo $form->error($model, 'verifyCode'); ?>
