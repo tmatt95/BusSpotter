@@ -1,0 +1,28 @@
+/* 
+    Document   : main.css
+    Created on : Mar 28, 2013, 4:29:18 PM
+    Author     : matthew
+    Description:
+        Contains all the css for the application
+*/
+
+root { 
+    display: block;
+}
+
+.highlightBox{background:#ccc;}
+.formText{margin-top: 5px;}
+.yearBox{width:40px}
+
+@media (min-width: 768px) {
+  .rightMenu{padding-top: 18px;}
+  .rightLink{float:right;}
+}
+
+@media (max-width: 767px) {
+  .rightMenu{padding-top: 0px; padding-bottom:12px;}
+  .rightLink{float:none;}
+  #mediaOTheMonth{display:none;}
+}
+
+.colheader{text-decoration:underline;}
