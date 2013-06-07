@@ -2,7 +2,6 @@
 
 class SpottingsController extends Controller
 {
-
     /**
      * Adds a spotting to the system
      */
