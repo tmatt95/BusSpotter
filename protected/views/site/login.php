@@ -17,6 +17,12 @@ $this->pageTitle = Yii::app()->name . ' - Login';
         ?>
         <legend>Register</legend>
         <?php $this->endWidget(); ?>
+        <p>Register form</p>
+        <p>Add captcha here!</p>
+        <div class="alert alert-success">
+            <h2>Welcome Aboard!</h2>
+            <p>Please check your e-mail for a link to activate your account</p>
+        </div>
     </div>
     <div class="span6">
         <?php
