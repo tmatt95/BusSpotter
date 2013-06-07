@@ -116,12 +116,17 @@ class SiteController extends Controller
 	}
 	$this->render('contact', array('model' => $model));
     }
+    
+    public function actionCreateUrl($location){
+        echo Yii::app()->createUrl($location);
+    }
 
     /**
      * Displays the login page
      */
     public function actionLogin(){
 	$model = new LoginForm;
+        $registerForm = new registerForm;
 
 	// if it is ajax validation request
 	if(isset($_POST['ajax']) && $_POST['ajax'] === 'login-form'){
@@ -137,7 +142,7 @@ class SiteController extends Controller
 		$this->redirect(Yii::app()->user->returnUrl);
 	}
 	// display the login form
-	$this->render('login', array('model' => $model));
+	$this->render('login', array('model' => $model,'registerForm'=>$registerForm));
     }
 
     /**
