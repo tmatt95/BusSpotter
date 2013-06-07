@@ -7,7 +7,6 @@
 </div>
 <h2>General</h2>
 <?php echo $this->renderPartial('_form', array('model' => $model));?>
-
 <script type="text/javascript">
     // Contains all operating locations
     var operatingLocations =  ko.observableArray([]);
@@ -114,8 +113,4 @@
     }
     
     ko.applyBindings(new LocationsViewModel());
-    
-    jQuery(document).ready(function($) {
-	$('.bstooltip').tooltip();
-    });
 </script>
