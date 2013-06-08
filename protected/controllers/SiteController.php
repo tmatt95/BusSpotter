@@ -124,14 +124,30 @@ class SiteController extends Controller
     /**
      * Displays the login page
      */
-    public function actionLogin(){
-	$model = new LoginForm;
-        $registerForm = new registerForm;
+    public function actionLogin(){	
+                $model = new LoginForm;
+        $registerForm = new Users;
 
 	// if it is ajax validation request
 	if(isset($_POST['ajax']) && $_POST['ajax'] === 'login-form'){
-	    echo CActiveForm::validate($model);
+            echo CActiveForm::validate($model);
 	    Yii::app()->end();
+	}
+        
+        // If registering add record
+        if(isset($_POST['Users'])){
+            $registerForm = new Users;
+	    $registerForm->attributes = $_POST['Users'];
+            $registerForm->password = crypt($registerForm->password,$registerForm->password);
+	    // validate user input and redirect to the previous page if valid
+	    $registerForm->save();
+            $registerForm->password = "";
+            $registerForm->passAgain = "";
+            
+            if(count($registerForm->getErrors()) == 0){
+                echo 'Added';
+                yii::app()->end();
+            }
 	}
 
 	// collect user input data
@@ -141,7 +157,6 @@ class SiteController extends Controller
 	    if($model->validate() && $model->login())
 		$this->redirect(Yii::app()->user->returnUrl);
 	}
-	// display the login form
 	$this->render('login', array('model' => $model,'registerForm'=>$registerForm));
     }
 

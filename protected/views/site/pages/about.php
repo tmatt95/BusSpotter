@@ -6,7 +6,7 @@ $this->pageTitle = Yii::app()->name . ' - About';
     <div class="span6">
         <h2>The Problems</h2>
         <ul>
-            <li><h5>A lot of information is never written down</h5>
+            <li><h5>Lots of information is never written down</h5>
                 <p>There are lots of very interesting bus stories spread through word of mouth which never get written down. It would be a shame to loose these. Through commenting on the vechiles we will be able to create an archive of these and hopefully there never loose them. <a href="#">Find out about commenting on Bus Spotter...</a></p>
             </li>
             <li>

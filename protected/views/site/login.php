@@ -6,20 +6,59 @@ $this->pageTitle = Yii::app()->name . ' - Login';
 ?>
 <div class="row">
     <div class="span6">
-        <?php
-        $form = $this->beginWidget('CActiveForm', array(
-            'id' => 'register-form',
-            'enableClientValidation' => true,
-            'clientOptions' => array(
-                'validateOnSubmit' => true,
-            ),
-        ));
-        ?>
         <legend>Register</legend>
+
         <div data-bind="if:registerSuccessful() == 'False'">
-            <?php $this->endWidget(); ?>
-            <p>Register form</p>
+            <?php
+            $rform = $this->beginWidget('CActiveForm', array(
+                'id' => 'register-form',
+                'enableClientValidation' => true,
+                'errorMessageCssClass' => 'text-error',
+                'clientOptions' => array(
+                    'validateOnSubmit' => true,
+                ),
+                'htmlOptions' => array('class' => 'form-horizontal')
+            ));
+            ?>
+            <fieldset>
+                <div class="control-group">
+                    <?php echo $rform->labelEx($registerForm, 'username', array('class' => 'control-label')); ?>
+                    <div class="controls">
+                        <?php echo $rform->textField($registerForm, 'username'); ?>
+                        <?php echo $rform->error($registerForm, 'username'); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <?php echo $rform->labelEx($registerForm, 'email', array('class' => 'control-label')); ?>
+                    <div class="controls">
+                        <?php echo $rform->textField($registerForm, 'email'); ?>
+                        <?php echo $rform->error($registerForm, 'email'); ?>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="control-group">
+                    <?php echo $rform->labelEx($registerForm, 'password', array('class' => 'control-label')); ?>
+                    <div class="controls">
+                        <?php echo $rform->passwordField($registerForm, 'password'); ?>
+                        <?php echo $rform->error($registerForm, 'password'); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <?php echo $rform->labelEx($registerForm, 'passAgain', array('class' => 'control-label')); ?>
+                    <div class="controls">
+                        <?php echo $rform->passwordField($registerForm, 'passAgain'); ?>
+                        <?php echo $rform->error($registerForm, 'passAgain'); ?>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="control-group">
+                <div class="controls">
+                    <?php echo CHtml::submitButton('Register', array('class' => 'btn btn-primary','data-bind'=>'click:registerUser')); ?>
+                </div>
+            </div>
             <p>Add captcha here!</p>
+            <?php $this->endWidget(); ?>
         </div>
         <div data-bind="if:registerSuccessful() == 'True'">
             <div class="alert alert-success">
@@ -74,6 +113,22 @@ $this->pageTitle = Yii::app()->name . ' - Login';
     function ViewModel() {
         // Register
         self.registerSuccessful = ko.observable('False');
+        
+        // Register a new user to the system
+        self.registerUser = function(){
+            $.ajax({
+		type: "POST",
+		url: $('#register-form').prop('action'),
+		data: $('#register-form').serialize()
+	    }).done(function( msg ) {
+                if(msg !== 'Added'){
+		$('#register-form').html($('#register-form',msg).html());
+                }else{
+                    self.registerSuccessful('True');
+                }
+	    });
+            return false;
+        };
     }
     ko.applyBindings(new ViewModel());
 </script>

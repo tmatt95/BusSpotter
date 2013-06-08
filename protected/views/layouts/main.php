@@ -30,7 +30,7 @@
                     ));
                     ?>
                 </div>
-            </div><!-- mainmenu -->
+            </div>
             <?php if (isset($this->breadcrumbs)): ?>
                 <?php
                 $this->widget('zii.widgets.CBreadcrumbs', array(
@@ -43,7 +43,7 @@
                 <hr  style="margin-bottom: 4px;"/>
                 <div class="row-fluid">
                     <div class="span4">
-                        <span class="muted">Created by: <a href="http://uk.linkedin.com/pub/matthew-turner/51/a07/a02/" target="_blank">Matt Turner (2013)</a></span>
+                        <span class="muted">Created by <a href="http://uk.linkedin.com/pub/matthew-turner/51/a07/a02/" target="_blank">Matt Turner (2013)</a></span>
                     </div>
                     <div class="span5 offset3">
                         <div style="float:right;">
