@@ -53,7 +53,7 @@ class VehiclesController extends Controller {
             'operating_locations' => $operatingLocations,
             'preserved_locations' => $preservationLocations
         );
-        print_r(json_encode($array));
+        $this->jsonReturn($array);
     }
 
     /**
@@ -61,11 +61,8 @@ class VehiclesController extends Controller {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionGetLatestAdded() {
-        $this->layout = false;
-        header('Content-type: application/json');
-        $rows = Vehicles::model()->getLast5Added();
-        echo(json_encode($rows));
-        Yii::app()->end();
+        $data = Vehicles::model()->getLast5Added();
+        $this->jsonReturn($data);
     }
 
     /**
