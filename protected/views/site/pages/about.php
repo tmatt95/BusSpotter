@@ -25,7 +25,7 @@ $this->pageTitle = Yii::app()->name . ' - About';
                 <p>To create a system which allows people to record information on the buses they see when they see them. </p>
             </li>
             <li>
-                <h5>To document the vehicles interesting histories</h5>
+                <h5>Documenting the vehicles interesting histories</h5>
             </li>
         </ul>
     </div>

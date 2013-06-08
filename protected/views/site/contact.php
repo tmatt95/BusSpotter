@@ -69,7 +69,9 @@ $this->pageTitle = Yii::app()->name . ' - Contact Us';
             </div>
         <?php endif; ?>
         <div class="control-group">
-            <?php echo CHtml::submitButton('Submit', array('class' => 'btn btn-primary')); ?>
+            <div class="controls">
+                <?php echo CHtml::submitButton('Submit', array('class' => 'btn btn-primary')); ?>
+            </div>
         </div>
         <?php $this->endWidget(); ?>
     </div>

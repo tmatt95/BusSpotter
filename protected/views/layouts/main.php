@@ -23,7 +23,7 @@
                             array('label' => 'About', 'url' => array('/site/page', 'view' => 'about')),
                             array('label' => 'Contact', 'url' => array('/site/contact')),
                             array('label' => 'Stats', 'url' => array('/site/page','view' => 'stats')),
-                            array('label' => 'Login / Register', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
+                            array('label' => 'Register / Login', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
                             array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
                         ),
                         'htmlOptions' => array('class' => 'nav')

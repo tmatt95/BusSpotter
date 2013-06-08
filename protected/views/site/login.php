@@ -29,6 +29,7 @@ $this->pageTitle = Yii::app()->name . ' - Login';
         $form = $this->beginWidget('CActiveForm', array(
             'id' => 'login-form',
             'enableClientValidation' => true,
+             'errorMessageCssClass'=>'text-error',
             'clientOptions' => array(
                 'validateOnSubmit' => true,
             ),
@@ -53,8 +54,12 @@ $this->pageTitle = Yii::app()->name . ' - Login';
         <div class="control-group">
             <div class="controls">
                 <?php echo $form->checkBox($model, 'rememberMe'); ?>
-                <?php echo $form->label($model, 'rememberMe'); ?>
+                <?php echo $form->label($model, 'rememberMe',array('style'=>'display: inline;position: relative; top: 3px;')); ?>
                 <?php echo $form->error($model, 'rememberMe'); ?>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
                 <?php echo CHtml::submitButton('Login', array('class' => 'btn btn-primary')); ?>
             </div>
         </div>
