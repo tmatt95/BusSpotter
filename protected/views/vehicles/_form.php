@@ -5,9 +5,11 @@
 ?>
 
 <div class="form">
+    Validation needed to ensure all fields are filled in that are required (both javascript / web coding)
     <?php
     $form = $this->beginWidget('CActiveForm', array(
 	'id'		   => 'vehicles-form',
+        'errorMessageCssClass' => 'text-error',
 	'enableAjaxValidation' => true,
 	'htmlOptions'	  => array('class' => 'form-horizontal','data-bind'=>'submit: addNewVehicle')
 	    ));
@@ -17,35 +19,35 @@
 	    <div class="control-group">
 		<?php echo CHtml::label('<span class="bstooltip" data-toggle="tooltip" title="Make of vehicle ( e.g Volvo )">Make *</span>', 'Vehicles_make', array('class' => 'control-label'));?>
 		<div class="controls">
-		    <?php echo $form->textField($model, 'make');?>
+		    <?php echo $form->textField($model, 'make',array('placeholder'=>'Make (e.g \'Volvo\')'));?>
 		    <?php echo $form->error($model, 'make', array('class' => 'help-inline'));?>
 		</div>
 	    </div>
 	    <div class="control-group">
 		<?php echo CHtml::label('<span class="bstooltip" data-toggle="tooltip" title="Model of vehicle ( e.g Olympian )">Model *</span>', 'Vehicles_model', array('class' => 'control-label'));?>
 		<div class="controls">
-		    <?php echo $form->textField($model, 'model');?>
+		    <?php echo $form->textField($model, 'model',array('placeholder'=>'Model (e.g \'Olympian\')'));?>
 		    <?php echo $form->error($model, 'model', array('class' => 'help-inline'));?>
 		</div>
 	    </div>
 	    <div class="control-group">
 		<?php echo CHtml::label('<span class="bstooltip" data-toggle="tooltip" title="Vehicles bodywork ( e.g Alexander RL )">Bodywork *</span>', 'Vehicles_bodywork_id', array('class' => 'control-label'));?>
 		<div class="controls">
-		    <?php echo $form->textField($model, 'bodywork');?>
+		    <?php echo $form->textField($model, 'bodywork', array('placeholder'=>'Bodywork (e.g \'Alexander RL\')'));?>
 		    <?php echo $form->error($model, 'bodywork', array('class' => 'help-inline'));?>
 		</div>
 	    </div>
 	    <div class="control-group">
 		<?php echo CHtml::label('<span class="bstooltip" data-toggle="tooltip" title="Vehicles registration without spaces ( e.g R127EVX )">Registration *</span>', 'Vehicles_registration', array('class' => 'control-label'));?>
 		<div class="controls">
-		    <?php echo $form->textField($model, 'registration', array('size'      => 60, 'maxlength' => 100, 'data-bind' => 'event: { change: checkUniqueBus}'));?>
+		    <?php echo $form->textField($model, 'registration', array('size'      => 60, 'maxlength' => 100, 'data-bind' => 'event: { change: checkUniqueBus}','placeholder'=>'Registration (e.g \'R127 EVX\')'));?>
 		    <?php echo $form->error($model, 'registration', array('class' => 'help-inline'));?>
 		</div>
 	    </div>
 	    <div class="control-group">
 		<?php echo CHtml::label('<span class="bstooltip" data-toggle="tooltip" title="Vehicles fleet number ( e.g 16127 )">Fleet Number *</span>', 'Vehicles_fleet_number', array('class' => 'control-label'));?>
 		<div class="controls">
-		    <?php echo $form->textField($model, 'fleet_number', array('size'      => 20, 'maxlength' => 20, 'data-bind' => 'event: { change: checkUniqueBus}'));?>
+		    <?php echo $form->textField($model, 'fleet_number', array('size'      => 20, 'maxlength' => 20, 'data-bind' => 'event: { change: checkUniqueBus}', 'placeholder'=>'Fleet Number (e.g \'16127\')'));?>
 		    <?php echo $form->error($model, 'fleet_number', array('class' => 'help-inline'));?>
 		</div>
 	    </div>

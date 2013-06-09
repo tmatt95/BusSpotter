@@ -94,6 +94,8 @@
 		
 		// if errors then do not continue and show error message
 		
+                // keep a record of what is done. and then go back and check / undo if a failiure is found
+                // when saving
 		// if complete return to menu
 		alert(msg );
 	    });
