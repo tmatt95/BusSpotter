@@ -119,6 +119,7 @@ $this->pageTitle = Yii::app()->name . ' - Login';
         <div class="control-group">
             <div class="controls">
                 <?php echo CHtml::submitButton('Login', array('class' => 'btn btn-primary')); ?>
+                Add forgot password!
             </div>
         </div>
         <?php $this->endWidget(); ?>

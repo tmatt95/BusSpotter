@@ -13,6 +13,13 @@
         <script type='text/javascript' src='<?php echo Yii::app()->request->baseUrl; ?>/scripts/bootstrap/js/bootstrap.min.js'></script>
         <script type='text/javascript' src='<?php echo Yii::app()->request->baseUrl; ?>/scripts/knockout-2.2.1.js'></script>
         <div class="container" id="page">
+            <div class="row">
+                <div class="span2 offset10" style="background:silver">
+                    <div style="padding:10px; border: 1px solid black; border-top: 0px">
+                        Login
+                    </div>
+                </div>
+            </div>
             <div id="mainmenu" class="navbar" style="margin-top:20px;">
                 <div class="navbar-inner">
                     <a class="brand" href="#"><?php echo CHtml::encode(Yii::app()->name); ?></a>
@@ -22,7 +29,7 @@
                             array('label' => 'Home', 'url' => array('/site/index')),
                             array('label' => 'About', 'url' => array('/site/page', 'view' => 'about')),
                             array('label' => 'Contact', 'url' => array('/site/contact')),
-                            array('label' => 'Stats', 'url' => array('/site/page','view' => 'stats')),
+                            array('label' => 'Stats', 'url' => array('/site/page', 'view' => 'stats')),
                             array('label' => 'Register / Login', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
                             array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
                         ),
