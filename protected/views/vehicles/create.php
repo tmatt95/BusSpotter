@@ -24,7 +24,6 @@
 	self.to = to;
     }
     
-    
     // Class to represent a row in the preservation location table
     function preservationLocation(name,from,to) {
 	var self = this;

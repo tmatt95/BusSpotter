@@ -27,6 +27,7 @@
 class Users extends CActiveRecord {
 
     var $passAgain;
+    public $verifyCode;
 
     /**
      * Generate a random salt in the crypt(3) standard Blowfish format.
@@ -76,15 +77,17 @@ class Users extends CActiveRecord {
         return array(
             array('username,email', 'unique'),
             array('username, password,email,passAgain', 'required'),
+            array('password', 'length','allowEmpty'=>false,'max'=>100,'min'=>'4'),
             array('email', 'email'),
             array('id, left, banned', 'numerical', 'integerOnly' => true),
             array('username', 'length', 'max' => 50),
             array('email', 'length', 'max' => 250),
             array('password', 'length', 'max' => 100),
             array('date_joined, left_date', 'safe'),
+            array('verifyCode', 'captcha', 'allowEmpty'=>!CCaptcha::checkRequirements()),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, username, email, password, date_joined, left, left_date, banned', 'safe', 'on' => 'search'),
+            array('id, username, email, date_joined, left, left_date, banned', 'safe', 'on' => 'search'),
         );
     }
 

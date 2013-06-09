@@ -7,7 +7,10 @@ $this->pageTitle = Yii::app()->name . ' - Login';
 <div class="row">
     <div class="span6">
         <legend>Register</legend>
-
+    <div class="alert alert-info">
+        <b> Did you know?</b> <br/> Registering is free and allows you to contribute your knowledge to the web site.
+    </div>
+        <p>Move register to bottom and check scaling of page</p>
         <div data-bind="if:registerSuccessful() == 'False'">
             <?php
             $rform = $this->beginWidget('CActiveForm', array(
@@ -51,13 +54,25 @@ $this->pageTitle = Yii::app()->name . ' - Login';
                         <?php echo $rform->error($registerForm, 'passAgain'); ?>
                     </div>
                 </div>
+                <?php if (CCaptcha::checkRequirements()): ?>
+                    <div class="control-group">
+                        <?php echo $rform->labelEx($registerForm, 'verifyCode', array('class' => 'control-label')); ?>
+                        <div class="controls">
+                            <?php $rform->widget('CCaptcha'); ?> <br/>
+                            <?php echo $rform->textField($registerForm, 'verifyCode'); ?>
+                            <div class="muted">Please enter the letters as they are shown in the image above.
+                                <br/>Letters are not case-sensitive.</div>
+                            <?php echo $rform->error($registerForm, 'verifyCode'); ?>
+                        </div>
+                        
+                    </div>
+                <?php endif; ?>
             </fieldset>
             <div class="control-group">
                 <div class="controls">
-                    <?php echo CHtml::submitButton('Register', array('class' => 'btn btn-primary','data-bind'=>'click:registerUser')); ?>
+                    <?php echo CHtml::submitButton('Register', array('class' => 'btn btn-primary', 'data-bind' => 'click:registerUser')); ?>
                 </div>
             </div>
-            <p>Add captcha here!</p>
             <?php $this->endWidget(); ?>
         </div>
         <div data-bind="if:registerSuccessful() == 'True'">
@@ -111,22 +126,26 @@ $this->pageTitle = Yii::app()->name . ' - Login';
 </div>
 <script type="text/javascript">
     function ViewModel() {
-        // Register
+        // =====================================================================
+        // REGISTER
+        // =====================================================================
+
+        // Register status
         self.registerSuccessful = ko.observable('False');
-        
+
         // Register a new user to the system
-        self.registerUser = function(){
+        self.registerUser = function() {
             $.ajax({
-		type: "POST",
-		url: $('#register-form').prop('action'),
-		data: $('#register-form').serialize()
-	    }).done(function( msg ) {
-                if(msg !== 'Added'){
-		$('#register-form').html($('#register-form',msg).html());
-                }else{
+                type: "POST",
+                url: $('#register-form').prop('action'),
+                data: $('#register-form').serialize()
+            }).done(function(msg) {
+                if (msg !== 'Added') {
+                    $('#register-form').html($('#register-form', msg).html());
+                } else {
                     self.registerSuccessful('True');
                 }
-	    });
+            });
             return false;
         };
     }
