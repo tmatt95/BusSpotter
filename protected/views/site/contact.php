@@ -22,12 +22,13 @@ $this->pageTitle = Yii::app()->name . ' - Contact Us';
         $form = $this->beginWidget('CActiveForm', array(
             'id' => 'contact-form',
             'enableClientValidation' => true,
+            'errorMessageCssClass' => 'text-error',
             'clientOptions' => array(
                 'validateOnSubmit' => true,
             ),
         ));
         ?>
-        <?php echo $form->errorSummary($model); ?>
+        <?php //echo $form->errorSummary($model); ?>
         <div class="control-group">
             <?php echo $form->labelEx($model, 'name', array('class' => 'control-label')); ?>
             <div class="controls">
@@ -64,8 +65,8 @@ $this->pageTitle = Yii::app()->name . ' - Contact Us';
                     <?php echo $form->textField($model, 'verifyCode'); ?>
                     <div class="muted">Please enter the letters as they are shown in the image above.
                         <br/>Letters are not case-sensitive.</div>
-                </div>
                 <?php echo $form->error($model, 'verifyCode'); ?>
+                </div>
             </div>
         <?php endif; ?>
         <div class="control-group">
