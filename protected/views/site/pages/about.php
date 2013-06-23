@@ -7,7 +7,13 @@ $this->pageTitle = Yii::app()->name . ' - About';
         <h2>The Problems</h2>
         <ul>
             <li><h5>Lots of information is never written down</h5>
-                <p>There are lots of very interesting bus stories spread through word of mouth which never get written down. It would be a shame to loose these. Through commenting on the vechiles we will be able to create an archive of these and hopefully there never loose them. <a href="#">Find out about commenting on Bus Spotter...</a></p>
+                <p>There are very interesting bus stories spread through word of
+                    mouth which never get written down. It would be a shame to 
+                    loose these. Through commenting on the vehicles we will be 
+                    able to create an archive of these and hopefully there never
+                    loose them. 
+                    <a href="#">Find out about commenting on Bus Spotter...</a>
+                </p>
             </li>
             <li>
                 <h5>No easy to access repository for bus specific information</h5>
@@ -22,7 +28,8 @@ $this->pageTitle = Yii::app()->name . ' - About';
             </li>
             <li>
                 <h5>A fun way of recording bus spottings</h5>
-                <p>To create a system which allows people to record information on the buses they see when they see them. </p>
+                <p>To create a system which allows people to record information
+                     on the buses they see when they see them. </p>
             </li>
             <li>
                 <h5>Documenting the vehicles interesting histories</h5>
