@@ -2,9 +2,8 @@
     <div class="row">
 	<div class="span10">
 	    <h2>Media of the Month</h2>
-	    <p class="muted">Every month we will hold a competition and place the winning Youtube video in the space below!</p>
-	</div>
-	<div class="span2 rightMenu"><a href="#" class="rightLink" data-bind="click:openDisclaimer">Disclaimer</a></div>
+	    <p class="muted">Every month we will hold a competition and place the winning Youtube video in the space below</p>
+        </div>
     </div>
     <div class="row">
 	<div class="span12" style="background: none repeat scroll 0% 0% rgb(0, 0, 0); margin-bottom: 20px;">
