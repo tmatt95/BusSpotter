@@ -39,10 +39,6 @@
     }
     
     $(document).ready(function() {
-	$('#searchRes a').click(function (e) {
-	    e.preventDefault();
-	    $(this).tab('show');
-	})
     });
     
     ko.applyBindings(new ViewModel());

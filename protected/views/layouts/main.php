@@ -15,7 +15,8 @@
         <div class="container" id="page">
             <div class="row-fluid">
                 <div class="span8">
-                    <div style="width: 728px; height: 90px; border: 1px solid; top: 10px; position: relative; background: none repeat scroll 0% 0% silver;"></div>
+                    <div class="addMediumR" style="border: 1px solid; top: 10px; position: relative; background: none repeat scroll 0% 0% silver; width: 460px; height: 60px;"> Show this box if below a certain width instead of wider box</div>
+                    <div class="addLargeR" style="width: 728px; height: 90px; border: 1px solid; top: 10px; position: relative; background: none repeat scroll 0% 0% silver;">Add box only if div is visible in javascript when page loads. Hide / show div based on width of page</div>
                 </div>
                 <?php if (Yii::app()->user->isGuest) { ?>
                     <div class="span4" style="background:#F2F2F2;border: 1px solid white;border-radius: 0px 0px 5px 5px;border-top:0px;">
