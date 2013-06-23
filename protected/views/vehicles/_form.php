@@ -161,18 +161,18 @@
     </div>
     <h2>Save Information</h2>
     <div class="row">
-	<div class="span2">
+	<div class="span3">
 	    <input type="submit" data-returnAfterSav="false" style="float:right;" class="btn btn-primary" value="Add vehicle"/>
 	</div>
 	<div class="span6">Save and leave</div>
     </div>
     <div class="row">
-	<div class="span3" style="text-align:center;">
+	<div class="span4" style="text-align:center;">
 	    or
 	</div>
     </div>
     <div class="row">
-	<div class="span2">
+	<div class="span3">
 	    <input type="submit" data-returnAfterSav="true" style="float:right;" class="btn btn-primary" value="Add vehicle and return"/>
 	</div>
 	<div class="span6">Save and populate form to add another of this type</div>
