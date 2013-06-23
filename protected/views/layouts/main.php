@@ -13,12 +13,31 @@
         <script type='text/javascript' src='<?php echo Yii::app()->request->baseUrl; ?>/scripts/bootstrap/js/bootstrap.min.js'></script>
         <script type='text/javascript' src='<?php echo Yii::app()->request->baseUrl; ?>/scripts/knockout-2.2.1.js'></script>
         <div class="container" id="page">
-            <div class="row">
-                <div class="span2 offset10" style="background:silver">
-                    <div style="padding:10px; border: 1px solid black; border-top: 0px">
-                        Login
-                    </div>
+            <div class="row-fluid">
+                <div class="span8">
+                    <div style="width: 728px; height: 90px; border: 1px solid; top: 10px; position: relative; background: none repeat scroll 0% 0% silver;"></div>
                 </div>
+                <?php if (Yii::app()->user->isGuest) { ?>
+                    <div class="span4" style="background:#F2F2F2;border: 1px solid white;border-radius: 0px 0px 5px 5px;border-top:0px;">
+                        <div style="padding:10px;">
+                            <span class="icon-user"></span> <?php echo CHtml::link('Login / Register', array('site/login')); ?>
+                        </div>
+                    </div>
+                <?php } else { ?>
+                <div class="span4" style="background:#F2F2F2;border: 1px solid white;border-radius: 0px 0px 5px 5px;border-top:0px;">
+                        <div style="padding:10px;">
+                            <div style="float:left;">
+                                <img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim(Users::model()->findByPk(Yii::app()->user->id)->email))); ?>?s=40&d=mm" />
+                            </div> 
+                            <div style="position: relative; left: 7px;">
+                            <?php echo Users::model()->findByPk(Yii::app()->user->id)->email ?> 
+                            <br/>
+                               <?php echo CHtml::link('Edit Profile'); ?>  | 
+                                <?php echo CHtml::link('Logout', array('/site/logout')); ?> 
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
             </div>
             <div id="mainmenu" class="navbar" style="margin-top:20px;">
                 <div class="navbar-inner">
@@ -29,9 +48,7 @@
                             array('label' => 'Home', 'url' => array('/site/index')),
                             array('label' => 'About', 'url' => array('/site/page', 'view' => 'about')),
                             array('label' => 'Contact', 'url' => array('/site/contact')),
-                            array('label' => 'Stats', 'url' => array('/site/page', 'view' => 'stats')),
-                            array('label' => 'Register / Login', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
-                            array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
+                            array('label' => 'Stats', 'url' => array('/site/page', 'view' => 'stats'))
                         ),
                         'htmlOptions' => array('class' => 'nav')
                     ));
