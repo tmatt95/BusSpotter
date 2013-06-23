@@ -24,15 +24,15 @@
                         </div>
                     </div>
                 <?php } else { ?>
-                <div class="span4" style="background:#F2F2F2;border: 1px solid white;border-radius: 0px 0px 5px 5px;border-top:0px;">
+                    <div class="span4" style="background:#F2F2F2;border: 1px solid white;border-radius: 0px 0px 5px 5px;border-top:0px;">
                         <div style="padding:10px;">
                             <div style="float:left;">
                                 <img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim(Users::model()->findByPk(Yii::app()->user->id)->email))); ?>?s=40&d=mm" />
                             </div> 
                             <div style="position: relative; left: 7px;">
-                            <?php echo Users::model()->findByPk(Yii::app()->user->id)->email ?> 
-                            <br/>
-                               <?php echo CHtml::link('Edit Profile'); ?>  | 
+                                <?php echo Users::model()->findByPk(Yii::app()->user->id)->email ?> 
+                                <br/>
+                                <?php echo CHtml::link('Edit Profile'); ?>  | 
                                 <?php echo CHtml::link('Logout', array('/site/logout')); ?> 
                             </div>
                         </div>
@@ -80,6 +80,12 @@
         <script type="text/javascript">
             jQuery(document).ready(function($) {
                 $('.bstooltip').tooltip();
+
+                // Loads tab functionality
+                $('.nav.nav-tabs a').click(function(e) {
+                    e.preventDefault();
+                    $(this).tab('show');
+                });
             });
         </script>
     </body>
