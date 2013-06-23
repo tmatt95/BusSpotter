@@ -10,19 +10,46 @@ root {
     display: block;
 }
 
+html{
+     min-height: 100%;
+}
+
+body{
+    min-height: 100%;
+    background: -moz-linear-gradient(top, #7d7e7d 0%, #0e0e0e 100%); /* FF3.6+ */
+}
+
+#page{
+    background: none repeat scroll 0% 0% white; padding: 0px 10px; border-radius: 5px 5px 5px 5px; margin: 10px auto;
+}
+
 .highlightBox{background:#ccc;}
 .formText{margin-top: 5px;}
 .yearBox{width:40px}
 
 @media (min-width: 768px) {
-  .rightMenu{padding-top: 18px;}
-  .rightLink{float:right;}
+    .rightMenu{padding-top: 18px;}
+    .rightLink{float:right;}
+}
+
+@media (max-width: 500px) {
+    #mainmenu {display:none;}
+    #content .searchBoxButton{
+        display: block;
+        padding: 13px;
+        width: 100%;
+    }
 }
 
 @media (max-width: 767px) {
-  .rightMenu{padding-top: 0px; padding-bottom:12px;}
-  .rightLink{float:none;}
-  #mediaOTheMonth{display:none;}
+    #sectSearch{margin:10px 0px;}
+    #sectSearch .highlightBox{
+        background:#fff;
+    }
+
+    .rightMenu{padding-top: 0px; padding-bottom:12px;}
+    .rightLink{float:none;}
+    #mediaOTheMonth{display:none;}
 }
 
 .colheader{text-decoration:underline;}
