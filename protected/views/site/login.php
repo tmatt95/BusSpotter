@@ -4,84 +4,7 @@
 /* @var $form CActiveForm  */
 $this->pageTitle = Yii::app()->name . ' - Login';
 ?>
-<div class="row">
-    <div class="span6">
-        <legend>Register</legend>
-    <div class="alert alert-info">
-        <b> Did you know?</b> <br/> Registering is free and allows you to contribute your knowledge to the web site.
-    </div>
-        <p>Move register to bottom and check scaling of page</p>
-        <div data-bind="if:registerSuccessful() == 'False'">
-            <?php
-            $rform = $this->beginWidget('CActiveForm', array(
-                'id' => 'register-form',
-                'enableClientValidation' => true,
-                'errorMessageCssClass' => 'text-error',
-                'clientOptions' => array(
-                    'validateOnSubmit' => true,
-                ),
-                'htmlOptions' => array('class' => 'form-horizontal')
-            ));
-            ?>
-            <fieldset>
-                <div class="control-group">
-                    <?php echo $rform->labelEx($registerForm, 'username', array('class' => 'control-label')); ?>
-                    <div class="controls">
-                        <?php echo $rform->textField($registerForm, 'username'); ?>
-                        <?php echo $rform->error($registerForm, 'username'); ?>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <?php echo $rform->labelEx($registerForm, 'email', array('class' => 'control-label')); ?>
-                    <div class="controls">
-                        <?php echo $rform->textField($registerForm, 'email'); ?>
-                        <?php echo $rform->error($registerForm, 'email'); ?>
-                    </div>
-                </div>
-            </fieldset>
-            <fieldset>
-                <div class="control-group">
-                    <?php echo $rform->labelEx($registerForm, 'password', array('class' => 'control-label')); ?>
-                    <div class="controls">
-                        <?php echo $rform->passwordField($registerForm, 'password'); ?>
-                        <?php echo $rform->error($registerForm, 'password'); ?>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <?php echo $rform->labelEx($registerForm, 'passAgain', array('class' => 'control-label')); ?>
-                    <div class="controls">
-                        <?php echo $rform->passwordField($registerForm, 'passAgain'); ?>
-                        <?php echo $rform->error($registerForm, 'passAgain'); ?>
-                    </div>
-                </div>
-                <?php if (CCaptcha::checkRequirements()): ?>
-                    <div class="control-group">
-                        <?php echo $rform->labelEx($registerForm, 'verifyCode', array('class' => 'control-label')); ?>
-                        <div class="controls">
-                            <?php $rform->widget('CCaptcha'); ?> <br/>
-                            <?php echo $rform->textField($registerForm, 'verifyCode'); ?>
-                            <div class="muted">Please enter the letters as they are shown in the image above.
-                                <br/>Letters are not case-sensitive.</div>
-                            <?php echo $rform->error($registerForm, 'verifyCode'); ?>
-                        </div>
-                        
-                    </div>
-                <?php endif; ?>
-            </fieldset>
-            <div class="control-group">
-                <div class="controls">
-                    <?php echo CHtml::submitButton('Register', array('class' => 'btn btn-primary', 'data-bind' => 'click:registerUser')); ?>
-                </div>
-            </div>
-            <?php $this->endWidget(); ?>
-        </div>
-        <div data-bind="if:registerSuccessful() == 'True'">
-            <div class="alert alert-success">
-                <h2>Welcome Aboard!</h2>
-                <p>Please check your e-mail for a link to activate your account</p>
-            </div>
-        </div>
-    </div>
+<div class="row-fluid">   
     <div class="span6">
         <?php
         $form = $this->beginWidget('CActiveForm', array(
@@ -119,10 +42,88 @@ $this->pageTitle = Yii::app()->name . ' - Login';
         <div class="control-group">
             <div class="controls">
                 <?php echo CHtml::submitButton('Login', array('class' => 'btn btn-primary')); ?>
-                Add forgot password!
+                <?php echo chtml::button('Forgot Password', array('class' => 'btn', 'data-bind' => 'click: forgotPassword')) ?>
             </div>
         </div>
         <?php $this->endWidget(); ?>
+    </div>
+    <div class="span6">
+        <div data-bind="if:registerSuccessful() == 'False'">
+            <?php
+            $rform = $this->beginWidget('CActiveForm', array(
+                'id' => 'register-form',
+                'enableClientValidation' => true,
+                'errorMessageCssClass' => 'text-error',
+                'clientOptions' => array(
+                    'validateOnSubmit' => true,
+                ),
+                'htmlOptions' => array('class' => 'form-horizontal')
+            ));
+            ?>
+            <legend>Register</legend>
+            <div class="alert alert-info">
+                <b> Did you know?</b> <br/> Registering is free and allows you to contribute your knowledge to the web site.
+            </div>
+            <fieldset>
+                <div class="control-group">
+                    <?php echo $rform->labelEx($registerForm, 'username', array('class' => 'control-label')); ?>
+                    <div class="controls">
+                        <?php echo $rform->textField($registerForm, 'username'); ?>
+                        <?php echo $rform->error($registerForm, 'username'); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <?php echo $rform->labelEx($registerForm, 'email', array('class' => 'control-label')); ?>
+                    <div class="controls">
+                        <?php echo $rform->textField($registerForm, 'email'); ?>
+                        <?php echo $rform->error($registerForm, 'email'); ?>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="control-group">
+                    <?php echo $rform->labelEx($registerForm, 'password', array('class' => 'control-label')); ?>
+                    <div class="controls">
+                        <?php echo $rform->passwordField($registerForm, 'password'); ?>
+                        <?php echo $rform->error($registerForm, 'password'); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <?php echo $rform->labelEx($registerForm, 'passAgain', array('class' => 'control-label')); ?>
+                    <div class="controls">
+                        <?php echo $rform->passwordField($registerForm, 'passAgain'); ?>
+                        <?php echo $rform->error($registerForm, 'passAgain'); ?>
+                    </div>
+                </div>
+                <?php if (CCaptcha::checkRequirements()): ?>
+                    <div class="control-group">
+                        <?php echo $rform->labelEx($registerForm, 'verifyCode', array('class' => 'control-label')); ?>
+                        <div class="controls">
+                            <?php $rform->widget('CCaptcha'); ?> <br/>
+                            <?php echo $rform->textField($registerForm, 'verifyCode'); ?>
+                            <div class="muted">Please enter the letters as they are shown in the image above. Letters are not case-sensitive.</div>
+                            <div class="muted">
+                                By registering you agree to the <?php echo CHtml::link('Terms and Conditions'); ?>
+                            </div>
+                            <?php echo $rform->error($registerForm, 'verifyCode'); ?>
+                        </div>
+
+                    </div>
+                <?php endif; ?>
+            </fieldset>
+            <div class="control-group">
+                <div class="controls">
+                    <?php echo CHtml::submitButton('Register', array('class' => 'btn btn-primary', 'data-bind' => 'click:registerUser')); ?>
+                </div>
+            </div>
+            <?php $this->endWidget(); ?>
+        </div>
+        <div data-bind="if:registerSuccessful() == 'True'">
+            <div class="alert alert-success">
+                <h2>Welcome Aboard!</h2>
+                <p>Please check your e-mail for a link to activate your account</p>
+            </div>
+        </div>
     </div>
 </div>
 <script type="text/javascript">
@@ -134,6 +135,9 @@ $this->pageTitle = Yii::app()->name . ' - Login';
         // Register status
         self.registerSuccessful = ko.observable('False');
 
+        self.forgotPassword = function() {
+            alert('Redirect to forgot password functionality');
+        }
         // Register a new user to the system
         self.registerUser = function() {
             $.ajax({
