@@ -1,10 +1,10 @@
 <p class="muted"> Filters can be used by themselves or in combination with others. <a>To find out about
 searching the system, click here</a></p>
 <form action="<?php echo Yii::app()->createUrl('site/search');?>">
-    <div class="row">
+    <div class="row-fluid">
 	<div class="span12 highlightBox">
 	    <div style="padding:10px;">
-		<div class="span3">
+		<div class="span4">
 		    <div class="control-group">
 			<label class="control-label" for="make">
                             <span class="bstooltip" data-original-title="The vehicles make">
@@ -29,7 +29,7 @@ searching the system, click here</a></p>
 		    </div>
 
 		</div>
-		<div class="span3">
+		<div class="span4">
 		    <div class="control-group">
 			<label class="control-label" for="bodywork">
                             <span class="bstooltip" data-original-title="The vehicles bodywork">
@@ -44,10 +44,10 @@ searching the system, click here</a></p>
 	    </div>
 	</div>
     </div>
-    <div class="row">
+    <div class="row-fluid">
 	<div class="span12 highlightBox">
 	    <div style="padding:10px;">
-		<div class="span3">
+		<div class="span4">
 		    <div class="control-group">
 			<label class="control-label" for="country">
                             <span class="bstooltip" data-original-title="The country the vehicle has been in at some point in its life">
@@ -71,7 +71,7 @@ searching the system, click here</a></p>
 			</div>
 		    </div>
 		</div>
-		<div class="span3">
+		<div class="span4">
 		    <div class="control-group">
 			<label class="control-label" for="location">
                             <span class="bstooltip" data-original-title="The location the vehicle has been in at some point in its life">
@@ -89,7 +89,7 @@ searching the system, click here</a></p>
     <div class="row">
 	<div class="span12 highlightBox">
 	    <div style="padding:10px;">
-		<input type="submit" value="Search" class="btn rightLink btn-primary" style="margin-bottom:10px;"/>
+		<input type="submit" id="searchSub" value="Search" class="btn rightLink btn-primary searchBoxButton" style="margin-bottom:10px;"/>
 	    </div>
 	</div>
     </div>
