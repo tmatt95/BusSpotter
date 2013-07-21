@@ -4,7 +4,6 @@
 /* @var $form CActiveForm */
 ?>
 <div class="form">
-    Validation needed to ensure all fields are filled in that are required (both javascript / web coding)
     <?php
     $form = $this->beginWidget('CActiveForm', array(
         'id' => 'vehicles-form',
@@ -15,7 +14,7 @@
     ?>
     <div class="row">
         <div class="span5">
-            <div style="margin-top: 17px;">
+            <div>
                 <div class="control-group">
                     <?php echo CHtml::label('<span class="bstooltip" data-toggle="tooltip" title="Make of vehicle ( e.g Volvo )">Make *</span>', 'Vehicles_make', array('class' => 'control-label')); ?>
                     <div class="controls">
@@ -141,13 +140,15 @@
         <div class="span1">
             <input type="text" name="PreservationLocation[from][]" maxlength="4" size="4"  data-error-message="Invalid Entry" data-min='1900' data-max="<?php echo date("Y"); ?>" class="yearBox" data-bind="value: presFromNew"/>
         </div>
-        <div class="span2">
+        <div class="span1">
             <input type="text" name="PreservationLocation[to][]" maxlength="4" size="4"  data-error-message="Invalid Entry" data-min='1900' data-max="<?php echo date("Y"); ?>" class="yearBox" data-bind="value: presToNew"/>
+        </div>
+        <div class="span2">
             <a href="#" class="btn" data-bind="click: addPreservation"><span class="icon-plus"></span> Another</a>
         </div>
     </div>
     <div data-bind="foreach: preservationLocations">
-        <div class="row" style="margin-top: 10px;">
+        <div class="row-fluid" style="margin-top: 10px;">
             <div class="span3">
                 <input type="text" name="PreservationLocation[owner_name][]" data-bind="value: presOperatorsName"/> 
             </div>
@@ -155,8 +156,10 @@
                 <input type="text" name="PreservationLocation[from][]" maxlength="4" size="4"  data-error-message="Invalid Entry" data-min='1900' data-max="<?php echo date("Y"); ?>" data-bind="value: presFrom" class="yearBox"/>
 
             </div>
-            <div class="span2">
+            <div class="span1">
                 <input type="text" name="PreservationLocation[to][]" class="yearBox"  data-error-message="Invalid Entry" data-min='1900' data-max="<?php echo date("Y"); ?>" data-bind="value: presTo"/>
+            </div>
+            <div class="span2">
                 <a href="#" class="btn" data-bind="click: $parent.deletePres"><span class="icon-minus"></span> Remove</a>
             </div>
         </div>

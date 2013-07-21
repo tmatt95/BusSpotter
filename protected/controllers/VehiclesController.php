@@ -69,7 +69,8 @@ class VehiclesController extends Controller {
      * Add a vehicle to the system 
      */
     public function actionAddVehicle() {
-
+        // Do all validation first
+        
         // Check to see if vehicle in system
         $vCheckArray = array(
             'condition' => 'fleet_number = :fleetNumber AND registration = :registration',
