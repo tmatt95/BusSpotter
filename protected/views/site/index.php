@@ -1,5 +1,6 @@
 <?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
-<?php echo $this->renderPartial('partials/_mediaOfTheMonth'); ?>
+<h1>Welcome</h1>
+    <?php echo $this->renderPartial('partials/_mediaOfTheMonth'); ?>
 <div id="sectSearch">
     <div class="row">
         <div class="span12">

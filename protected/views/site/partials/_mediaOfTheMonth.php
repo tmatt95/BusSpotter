@@ -1,7 +1,6 @@
 <div id="mediaOTheMonth">
     <div class="row">
 	<div class="span10">
-	    <h2>Media of the Month</h2>
 	    <p class="muted">Every month we will hold a competition and place 
                 the winning Youtube video in the space below
             </p>
