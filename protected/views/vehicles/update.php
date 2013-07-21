@@ -1,21 +1,9 @@
-<?php
-/* @var $this VehiclesController */
-/* @var $model Vehicles */
-
-$this->breadcrumbs=array(
-	'Vehicles'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
-	'Update',
-);
-
-$this->menu=array(
-	array('label'=>'List Vehicles', 'url'=>array('index')),
-	array('label'=>'Create Vehicles', 'url'=>array('create')),
-	array('label'=>'View Vehicles', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Vehicles', 'url'=>array('admin')),
-);
-?>
-
-<h1>Update Vehicles <?php echo $model->id; ?></h1>
-
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<div class="row">
+    <div class="span10"><h1>Update Vehicle Info</h1></div>
+    <div class="span2 rightMenu"><?php echo CHtml::link('Cancel', array('site/index'), array('class' => 'btn btn-danger rightLink'));?></div>
+</div>
+<div class="alert alert-info">
+    Not sure how to fill in a section? Mouse over the labels for some help or watch this tutorial video - <a href="#">Updating a vehicle on Bus Spotter</a>
+</div>
+<h2>General</h2>
+<?php echo $this->renderPartial('partials/_form', array('model' => $model));?>

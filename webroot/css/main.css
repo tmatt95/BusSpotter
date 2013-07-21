@@ -27,13 +27,16 @@ body{
 .formText{margin-top: 5px;}
 .yearBox{width:40px}
 
+
+.parsley-error-list{margin:0px;color: #B94A48;}
+
+
 @media (min-width: 768px) {
     .rightMenu{padding-top: 18px;}
     .rightLink{float:right;}
 }
 
 @media (max-width: 500px) {
-    #mainmenu {display:none;}
     #content .searchBoxButton{
         display: block;
         padding: 13px;

@@ -12,11 +12,12 @@
     <body>
         <script type='text/javascript' src='<?php echo Yii::app()->request->baseUrl; ?>/scripts/bootstrap/js/bootstrap.min.js'></script>
         <script type='text/javascript' src='<?php echo Yii::app()->request->baseUrl; ?>/scripts/knockout-2.2.1.js'></script>
+         <script type='text/javascript' src='<?php echo Yii::app()->request->baseUrl; ?>/scripts/parsley.js'></script>
         <div class="container" id="page">
             <div class="row-fluid">
                 <div class="span8">
-                    <div class="addMediumR" style="border: 1px solid; top: 10px; position: relative; background: none repeat scroll 0% 0% silver; width: 460px; height: 60px;"> Show this box if below a certain width instead of wider box</div>
-                    <div class="addLargeR" style="width: 728px; height: 90px; border: 1px solid; top: 10px; position: relative; background: none repeat scroll 0% 0% silver;">Add box only if div is visible in javascript when page loads. Hide / show div based on width of page</div>
+<!--                    <div class="addMediumR" style="border: 1px solid; top: 10px; position: relative; background: none repeat scroll 0% 0% silver; width: 460px; height: 60px;"> Show this box if below a certain width instead of wider box</div>
+                    <div class="addLargeR" style="width: 728px; height: 90px; border: 1px solid; top: 10px; position: relative; background: none repeat scroll 0% 0% silver;">Add box only if div is visible in javascript when page loads. Hide / show div based on width of page</div>-->
                 </div>
                 <?php if (Yii::app()->user->isGuest) { ?>
                     <div class="span4" style="background:#F2F2F2;border: 1px solid white;border-radius: 0px 0px 5px 5px;border-top:0px;">
@@ -41,20 +42,33 @@
                 <?php } ?>
             </div>
             <div id="mainmenu" class="navbar" style="margin-top:20px;">
-                <div class="navbar-inner">
-                    <a class="brand" href="#"><?php echo CHtml::encode(Yii::app()->name); ?></a>
-                    <?php
-                    $this->widget('zii.widgets.CMenu', array(
-                        'items' => array(
-                            array('label' => 'Home', 'url' => array('/site/index')),
-                            array('label' => 'About', 'url' => array('/site/page', 'view' => 'about')),
-                            array('label' => 'Contact', 'url' => array('/site/contact')),
-                            array('label' => 'Stats', 'url' => array('/site/page', 'view' => 'stats'))
-                        ),
-                        'htmlOptions' => array('class' => 'nav')
-                    ));
-                    ?>
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div class="container">
+                            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </a>
+                            <a class="brand" href="#"><?php echo CHtml::encode(Yii::app()->name); ?></a>
+                            <div class="nav-collapse collapse">
+                                <?php
+                                $this->widget('zii.widgets.CMenu', array(
+                                    'items' => array(
+                                        array('label' => 'Home', 'url' => array('/site/index')),
+                                        array('label' => 'About', 'url' => array('/site/page', 'view' => 'about')),
+                                        array('label' => 'Contact', 'url' => array('/site/contact')),
+                                        array('label' => 'Stats', 'url' => array('/site/page', 'view' => 'stats'))
+                                    ),
+                                    'htmlOptions' => array('class' => 'nav')
+                                ));
+                                ?>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
+
             </div>
             <?php if (isset($this->breadcrumbs)): ?>
                 <?php

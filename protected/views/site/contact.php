@@ -4,15 +4,11 @@
 /* @var $form CActiveForm */
 $this->pageTitle = Yii::app()->name . ' - Contact Us';
 ?>
-
 <h1>Contact Us</h1>
-
 <?php if (Yii::app()->user->hasFlash('contact')): ?>
-
     <div class="flash-success">
         <?php echo Yii::app()->user->getFlash('contact'); ?>
     </div>
-
 <?php else: ?>
     <p class="muted">
         Please fill out the following form to contact us. Thank you.
@@ -28,7 +24,6 @@ $this->pageTitle = Yii::app()->name . ' - Contact Us';
             ),
         ));
         ?>
-        <?php //echo $form->errorSummary($model); ?>
         <div class="control-group">
             <?php echo $form->labelEx($model, 'name', array('class' => 'control-label')); ?>
             <div class="controls">
