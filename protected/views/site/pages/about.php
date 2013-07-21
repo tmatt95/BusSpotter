@@ -2,6 +2,8 @@
 $this->pageTitle = Yii::app()->name . ' - About';
 ?>
 <h1>About Us</h1>
+
+<img src="<?php echo Yii::app()->baseUrl; ?>/images/TicketMachine.jpg" />
 <div class="row">
     <div class="span6">
         <h2>The Problems</h2>

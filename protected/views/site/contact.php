@@ -5,15 +5,13 @@
 $this->pageTitle = Yii::app()->name . ' - Contact Us';
 ?>
 <h1>Contact Us</h1>
+<img src="<?php echo Yii::app()->baseUrl; ?>/images/Dash.jpg" />
 <?php if (Yii::app()->user->hasFlash('contact')): ?>
     <div class="flash-success">
         <?php echo Yii::app()->user->getFlash('contact'); ?>
     </div>
 <?php else: ?>
-    <p class="muted">
-        Please fill out the following form to contact us. Thank you.
-    </p>
-    <div class="form form-horizontal">
+    <div class="form form-horizontal" style="margin-top:23px;">
         <?php
         $form = $this->beginWidget('CActiveForm', array(
             'id' => 'contact-form',
